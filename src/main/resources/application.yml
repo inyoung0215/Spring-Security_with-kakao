@@ -1,0 +1,49 @@
+spring:
+  config:
+    import: env.yml, application-api.yml
+
+  h2:
+    console:
+      enabled: true
+#      settings:
+#        web-allow-others: true
+
+  sql:
+    init:
+      schema-locations: classpath*:table/h2/schema.sql
+      data-locations: classpath*:table/h2/data.sql
+      mode: always
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: h2
+
+  datasource:
+    #    url: jdbc:mysql://localhost:3306/chalkak?serverTimezone=UTC&charsetEncoding=UTF-8
+    url: jdbc:h2:mem:petnuri;DB_CLOSE_DELAY=-1
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    #    username: root
+    #    password: 1234
+    username: sa
+    password:
+
+  servlet:
+    multipart:
+      max-file-size: 1MB # Maximum size of a single file
+      max-request-size: 1MB # Maximum size of the HTTP request
+
+cloud:
+  aws:
+    s3:
+      bucket: petnuri-image-bucket
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      accessKey: AKIAX45M4GINRNNTHVNA
+      secretKey: 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

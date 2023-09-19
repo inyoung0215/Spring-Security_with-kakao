@@ -1,0 +1,30 @@
+spring:
+  config:
+    import: env.yml
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${kakao.api.client-id}
+            client-secret: ${kakao.api.secret-key}
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            scope:
+              - account_email
+#              - phone_number
+            client-authentication-method: POST
+            client-name: kakao
+
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+  redis:
+    host: ${redis.ec2.host}
+    port: 6379
+    password: ${redis.ec2.password}
